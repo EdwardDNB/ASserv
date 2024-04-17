@@ -17,12 +17,14 @@ const corsOptions ={
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }))
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(movieRoutes)
 app.use(tasksRoutes)
 app.use(toDoListsRoutes)
 app.use(articleRoutes)
-app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 
 

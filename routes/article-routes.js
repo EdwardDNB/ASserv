@@ -1,14 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { createArticle, deleteArticle,getArticles, deleteImage} = require('../controllers/articleController');
-/*const multer = require('multer'); // Для обработки загрузки файлов
-const path = require('path');
-const fs = require('fs'); // Для работы с файловой системой*/
+const { createArticle, deleteArticle,getArticles, deleteImage, uploadMiddleware} = require('../controllers/articleController');
 
-// Роут для создания новой статьи
-router.post('/articles', createArticle);
+
 
 router.get('/articles', getArticles);
+// Роут для создания новой статьи
+//router.post('/articles', createArticle);
+
+
+
+// Роут для загрузки изображений и создания статьи
+router.post('/articles/', uploadMiddleware, createArticle);
+
 
 // Роут для удаления статьи по ID
 router.delete('/articles/:id', deleteArticle);
@@ -20,7 +24,8 @@ router.delete('/articles/delete-image/:filename', deleteImage);
 
 // Роут и контроллер для загрузки изображений
 // Настройка хранения изображений
-/*const storage = multer.diskStorage({
+/*
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'images'); // Каталог для хранения изображений
     },
@@ -33,7 +38,8 @@ const upload = multer({ storage: storage });
 
 router.post('/articles/upload-image', upload.single('image'), (req, res) => {
     res.status(201).json({ success: true, imageUrl: req.file.filename }); // Отправляем только имя файла, а не путь к нему
-});*/
+});
+*/
 
 
 
