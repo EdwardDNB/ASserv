@@ -23,21 +23,23 @@ const storage = multer.diskStorage({
 });
 upload = multer({storage: storage});
 
-exports.uploadMiddleware = upload.fields([{ name: 'imageUrl', maxCount: 1 }, { name: 'fullImageUrl', maxCount: 1 }]);
+exports.uploadMiddleware = upload.array([{ name: 'imageUrl', maxCount: 1 }, { name: 'fullImageUrl', maxCount: 1 }]);
 // Контроллер для создания новой статьи
 exports.createArticle = async (req, res) => {
-    if (!req.files || !req.files['imageUrl'] || !req.files['fullImageUrl']) {
+    console.log(req.body)
+  /*  if (!req.files || !req.files['imageUrl'] || !req.files['fullImageUrl']) {
         return res.status(400).json({ success: false, error: 'Missing image files' });
-    }
+    }*/
     try {
         // Получаем данные статьи и имена загруженных изображений
-        const { title, preview, date, content, id, source, sourceName } = req.body;
+        const { title, preview, date, content, id, source, sourceName,imageUrl,
+            fullImageUrl } = req.body;
         // Проверяем наличие файлов изображений
-        console.log(req.files['imageUrl'][0])
+     /*   console.log(req.files['imageUrl'][0])
         console.log(req.files['fullImageUrl'][0].filename)
-        const imageUrl = req.files['imageUrl'] ? req.files['imageUrl'][0].filename : null; // Имя файла загруженного изображения
-        const fullImageUrl = req.files['fullImageUrl'] ? req.files['fullImageUrl'][0].filename : null; // Имя файла загруженного полноразмерного изображения
-
+        const imageUrl = req.files['imageUrl'] ? req.files['imageUrl'][0].filename : ""; // Имя файла загруженного изображения
+        const fullImageUrl = req.files['fullImageUrl'] ? req.files['fullImageUrl'][0].filename : ""; // Имя файла загруженного полноразмерного изображения
+*/
         // Создаем новую статью с данными и именами изображений
         const article = new Article({
             title,
@@ -53,7 +55,7 @@ exports.createArticle = async (req, res) => {
 
         // Сохраняем статью в базу данных
         await article.save();
-
+        console.log(res.data)
         // Отправляем ответ с успешно созданной статьей
         res.status(201).json({ success: true, data: article });
     } catch (error) {
