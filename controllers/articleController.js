@@ -11,6 +11,7 @@ exports.getArticles = async (req, res) => {
         res.status(500).json({message: error.message});
     }
 };
+
 // Настройка multer для сохранения изображений
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -22,12 +23,11 @@ const storage = multer.diskStorage({
     }
 });
 upload = multer({storage: storage});
-
 exports.uploadMiddleware = upload.array([{ name: 'imageUrl', maxCount: 1 }, { name: 'fullImageUrl', maxCount: 1 }]);
+
 // Контроллер для создания новой статьи
 exports.createArticle = async (req, res) => {
-    console.log(req.body)
-  /*  if (!req.files || !req.files['imageUrl'] || !req.files['fullImageUrl']) {
+   /*  if (!req.files || !req.files['imageUrl'] || !req.files['fullImageUrl']) {
         return res.status(400).json({ success: false, error: 'Missing image files' });
     }*/
     try {
@@ -55,8 +55,7 @@ exports.createArticle = async (req, res) => {
 
         // Сохраняем статью в базу данных
         await article.save();
-        console.log(res.data)
-        // Отправляем ответ с успешно созданной статьей
+               // Отправляем ответ с успешно созданной статьей
         res.status(201).json({ success: true, data: article });
     } catch (error) {
         // Отправляем ответ с ошибкой, если что-то пошло не так
