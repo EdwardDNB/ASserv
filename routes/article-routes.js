@@ -19,7 +19,7 @@ router.delete('/articles/:id', deleteArticle);
 
 
 
-// Роут и контроллер для удаления изображений
+// Роутwssw и контроллер для удаления изображений
 router.delete('/articles/delete-image/:filename', deleteImage);
 
 // Роут и контроллер для загрузки изображений
