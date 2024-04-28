@@ -27,20 +27,12 @@ exports.uploadMiddleware = upload.array([{ name: 'imageUrl', maxCount: 1 }, { na
 
 // Контроллер для создания новой статьи
 exports.createArticle = async (req, res) => {
-   /*  if (!req.files || !req.files['imageUrl'] || !req.files['fullImageUrl']) {
-        return res.status(400).json({ success: false, error: 'Missing image files' });
-    }*/
+
     try {
-        // Получаем данные статьи и имена загруженных изображений
+
         const { title, preview, date, content, id, source, sourceName,imageUrl,
             fullImageUrl } = req.body;
-        // Проверяем наличие файлов изображений
-     /*   console.log(req.files['imageUrl'][0])
-        console.log(req.files['fullImageUrl'][0].filename)
-        const imageUrl = req.files['imageUrl'] ? req.files['imageUrl'][0].filename : ""; // Имя файла загруженного изображения
-        const fullImageUrl = req.files['fullImageUrl'] ? req.files['fullImageUrl'][0].filename : ""; // Имя файла загруженного полноразмерного изображения
-*/
-        // Создаем новую статью с данными и именами изображений
+
         const article = new Article({
             title,
             preview,

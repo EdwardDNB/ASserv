@@ -7,6 +7,7 @@ const tasksRoutes = require("./routes/tasks-routes");
 const toDoListsRoutes = require("./routes/toDoLists-routes");
 const movieRoutes = require("./routes/movie-routes");
 const articleRoutes = require("./routes/article-routes");
+const phoneRoutes = require("./routes/phone-routes");
 const path = require('path');
 const PORT = 3001;
 const URL = 'mongodb://127.0.0.1:27017/STO'
@@ -24,7 +25,7 @@ app.use(movieRoutes)
 app.use(tasksRoutes)
 app.use(toDoListsRoutes)
 app.use(articleRoutes)
-
+app.use(phoneRoutes);
 
 
 
