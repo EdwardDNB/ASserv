@@ -1,4 +1,3 @@
-// controllers/phoneController.js
 const Phone = require('../models/phone');
 
 exports.addPhone = async (req, res) => {
