@@ -1,13 +1,21 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const cors = require('cors');
-
+/*mongoose.set('toJSON', {
+    virtuals: true,
+    transform: function (doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+    },
+});*/
 
 const tasksRoutes = require("./routes/tasks-routes");
 const toDoListsRoutes = require("./routes/toDoLists-routes");
 const movieRoutes = require("./routes/movie-routes");
 const articleRoutes = require("./routes/article-routes");
 const phoneRoutes = require("./routes/phone-routes");
+const authRoutes = require("./routes/auth-routes");
 const path = require('path');
 const PORT = 3001;
 const URL = 'mongodb://127.0.0.1:27017/STO'
@@ -26,6 +34,7 @@ app.use(tasksRoutes)
 app.use(toDoListsRoutes)
 app.use(articleRoutes)
 app.use(phoneRoutes);
+app.use(authRoutes);
 
 
 
