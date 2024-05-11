@@ -54,7 +54,8 @@ exports.login = async (req, res) => {
         }
         // Генерация JWT токена
         const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: '1h' },null);
-        res.json({ token, user });
+        console.log(token)
+                res.json({ token, user });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -62,9 +63,22 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
     try {
-        // Просто удаляем токен, предполагая, что клиент удалит его из localStorage или куки
+        // Просто удаляем токен, предполагая, что клиент удалит его из localStorage
         res.clearCookie('token'); // Очищаем токен из куки (если он хранится там)
         res.status(200).json({ message: 'Вы успешно разлогинились' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+exports.getUserById = async (req, res) => {
+    try {
+        const id = req.user.id;
+        // Извлекаем идентификатор пользователя из декодированного токена
+        const user = await User.findOne({id});
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({ user });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
