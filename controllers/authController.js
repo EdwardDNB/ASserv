@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
         }
         // Генерация JWT токена
         const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: '1h' },null);
-        console.log(token)
+
                 res.json({ token, user });
     } catch (error) {
         res.status(500).json({ error: error.message });
