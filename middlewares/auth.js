@@ -6,16 +6,16 @@ const Order = require("../models/order");
 exports.checkRole = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const user = await User.findOne({userId});
+        const user = await User.findOne({id: userId});
 
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({error: 'User not found'});
         }
 
         req.userRole = user?.role;
         next();
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({error: error.message});
     }
 };
 
@@ -25,19 +25,32 @@ exports.checkOrderAccess = async (req, res, next) => {
         const userId = req.user.id;
         const userRole = req.userRole;
         const orderId = req.params.id;
-        const order = await Order.findOne({orderId});
+        const order = await Order.findOne({id: orderId});
 
         if (!order) {
-            return res.status(404).json({ error: 'Order not found' });
+            return res.status(404).json({error: 'Order not found'});
         }
 
         if (userRole !== 'manager' && order?.userId?.toString() !== userId) {
-            return res.status(403).json({ error: 'Access denied' });
+            return res.status(403).json({error: 'Access denied'});
         }
 
         req.order = order;
         next();
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({error: error.message});
+    }
+};
+exports.checkAccessManOrStaff = async (req, res, next) => {
+    try {
+        const userRole = req.userRole;
+
+        if (userRole !== 'manager' && userRole !== 'staff') {
+            return res.status(403).json({error: 'Access denied'});
+        }
+
+        next();
+    } catch (error) {
+        res.status(500).json({error: error.message});
     }
 };

@@ -2,20 +2,25 @@ const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
     id: {
-        type:String,
-        required:true
+        type: String,
+        required: true
     },
-    todolistId: {
-        type:String,
-        required:true
+    orderId: {
+        type: String,
+        required: true
     },
     title: {
-        type:String,
-        required:true
+        type: String,
+        required: true
+    },
+    supplies: {
+        type: String,
+        default:"Add supplies",
     },
     isDone: {
-        type:Boolean,
-        required:true
+        type: Boolean,
+        required: true,
+        default:false,
     }
 });
 

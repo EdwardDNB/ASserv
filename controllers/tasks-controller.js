@@ -5,8 +5,7 @@ const Task = require('../models/tasks');
 const getTasks= async (req, res) => {
     try {
         const tasks = await Task.find();
-        //res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-        res.json(tasks);
+                res.json(tasks);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -15,14 +14,15 @@ const getTasks= async (req, res) => {
 // POST /tasks
 // Создать новую задачу
 const addTask=async (req, res) => {
-    const task = new Task({
+       const task = new Task({
         id:req.body.id,
-        todolistId: req.body.todolistId,
+        orderId: req.body.orderId,
         title: req.body.title,
-        isDone: req.body.isDone
+        isDone: req.body.isDone,
+        supplies:req.body.supplies
     });
     try {
-        const newTask = await task.save();
+        const newTask = await task?.save();
         res.status(201).json(newTask);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -48,7 +48,12 @@ const deleteTask = async (req, res) => {
 };
 const deleteTasks = async (req, res) => {
     try {
-        await Task.deleteMany({ id: req.params.todolistId }); // или deleteMany(), в зависимости от вашего использования
+        const tasks = await Task.find({ orderId: req.params.orderId });
+
+        if (!tasks) {
+            return res.status(404).json({ message: 'Tasks not found' });
+        }
+        await Task.deleteMany({ orderId: req.params.orderId }); // или deleteMany(), в зависимости от вашего использования
         res.json({ message: 'Tasks deleted' });
 
     } catch (error) {
@@ -63,6 +68,23 @@ const updateTaskTitle = async (req, res) => {
     try {
         // Находим задачу по ID и обновляем ее заголовок
         const updatedTask = await Task.updateOne({id}, { title }, { new: true });
+
+        if (!updatedTask) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        res.json(updatedTask);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+const updateTaskSupplies = async (req, res) => {
+    const { id } = req.params;
+    const { supplies } = req.body;
+
+    try {
+        // Находим задачу по ID и обновляем ее заголовок
+        const updatedTask = await Task.updateOne({id}, { supplies }, { new: true });
 
         if (!updatedTask) {
             return res.status(404).json({ message: 'Task not found' });
@@ -105,6 +127,6 @@ async function getTask(req, res, next) {
 
 
 module.exports={getTasks,
-    addTask,getTask,getMyTask,deleteTask,deleteTasks,updateTaskTitle,updateTaskStatus
+    addTask,getTask,getMyTask,deleteTask,deleteTasks,updateTaskTitle,updateTaskStatus,updateTaskSupplies
 }
 

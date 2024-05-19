@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    userId:{ type: String, required: true},
-    firstName: { type: String, required: true },
-    lastName: { type: String, default: "" },
-    patronymic: { type: String , default: "" },
-    phone: { type: String, required: true, unique: true },
-    photo: { type: String, default: "" },
-    id: { type: String, required: true, unique: true },
-    mail: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    registrationDate: { type: Date, default: Date.now },
-    role: { type: String, enum: ["manager", "customer", "staff"], default: "customer" },
+    firstName: {type: String, required: true},
+    lastName: {type: String, default: ""},
+    patronymic: {type: String, default: ""},
+    phone: {type: String, required: true, unique: true},
+    photo: {type: String, default: ""},
+    id: {type: String, required: true, unique: true},
+    mail: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    registrationDate: {type: Date, default: Date.now},
+    role: {type: String, enum: ["manager", "customer", "staff"], default: "customer"},
     // Інші поля за необхідності
 });
 
