@@ -27,7 +27,25 @@
     {"id": "3", "number": "+380996373161", "date": 1649956978381, "called": true},
     {"id": "4", "number": "+380996373161", "date": 1649956978381, "called": true},
     {"id": "5", "number": "+380996373161", "date": 1649956978381, "called": true},
-    {"id": "6", "number": "+380996373161", "date": 1649956978381, "called": true}
+    {"id": "6", "number": "+380996373161", "date": 1649956978381, "called": true},
+    {
+      "_id": {
+        "$oid": "6637a426f604fa0e7d18546d"
+      },
+      "firstName": "Edward",
+      "lastName": "",
+      "patronymic": "",
+      "phone": "0996373161",
+      "photo": "",
+      "id": "07133512-86f9-4072-a550-be198a515b51",
+      "mail": "edvarddnbs@gmail.com",
+      "password": "$2b$10$pIclUgNSMHOnrDI2VVmaPuHsj19KWLmKQozk61ahOr8lpDLjayOgm",
+      "registrationDate": {
+        "$date": "2024-05-05T15:22:13.984Z"
+      },
+      "role": "manager",
+      "__v": 0
+    }
   ]
 ]
 
