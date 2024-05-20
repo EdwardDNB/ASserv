@@ -4,7 +4,6 @@ const cors = require('cors');
 
 
 const tasksRoutes = require("./routes/tasks-routes");
-const toDoListsRoutes = require("./routes/toDoLists-routes");
 const articleRoutes = require("./routes/article-routes");
 const phoneRoutes = require("./routes/phone-routes");
 const authRoutes = require("./routes/auth-routes");
@@ -23,7 +22,6 @@ app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(tasksRoutes)
-app.use(toDoListsRoutes)
 app.use(articleRoutes)
 app.use(phoneRoutes);
 app.use(authRoutes);
