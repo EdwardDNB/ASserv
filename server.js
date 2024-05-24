@@ -8,6 +8,7 @@ const articleRoutes = require("./routes/article-routes");
 const phoneRoutes = require("./routes/phone-routes");
 const authRoutes = require("./routes/auth-routes");
 const orderRoutes = require("./routes/orderRoutes");
+const userRoutes = require("./routes/userRoutes");
 const path = require('path');
 const PORT = 3001;
 const URL = 'mongodb://127.0.0.1:27017/STO'
@@ -26,6 +27,7 @@ app.use(articleRoutes)
 app.use(phoneRoutes);
 app.use(authRoutes);
 app.use(orderRoutes);
+app.use(userRoutes);
 
 
 

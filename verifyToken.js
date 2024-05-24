@@ -27,3 +27,4 @@ function removeBearerPrefix(token) {
         return token;
     }
 }
+
