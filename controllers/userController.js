@@ -12,9 +12,8 @@ exports.getUsers = async (req, res) => {
             res.json(users);
         } else {
             // Клиент и сотрудник видят только свои данные
-            const singleUser = await User.findOne({id: userId});
-            const usersUser=[singleUser]
-            res.json(usersUser);
+            const singleUser = [await User.findOne({id: userId})];
+            res.json(singleUser);
         }
     } catch (error) {
         res.status(500).json({error: error.message});
