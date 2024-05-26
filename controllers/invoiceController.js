@@ -64,8 +64,12 @@ exports.createInvoice = async (req, res) => {
             return res.status(404).json({error: 'User not found'});
         }
         const{firstName,lastName}=user
-        const totalSuppliesCost = tasks?.reduce((acc, task) => acc + (task.suppliesCost || 0), 0);
-        const totalCost = totalSuppliesCost + workCost;
+
+
+        // Привести значения к числу и посчитать общую стоимость supplies
+        const totalSuppliesCost = tasks.reduce((acc, task) => acc + (Number(task.suppliesCost) || 0), 0);
+        const workCostNumber = Number(workCost) || 0;
+        const totalCost = totalSuppliesCost + workCostNumber;
 
         const newInvoice = new Invoice({
             id: uuid(),
@@ -113,9 +117,9 @@ exports.updateInvoice = async (req, res) => {
         if (!invoice) {
             return res.status(404).json({error: 'Invoice not found'});
         }
-        const totalSuppliesCost = updatedData?.tasks.reduce((acc, task) => acc + (task.suppliesCost || 0), 0);
-        const totalCost = totalSuppliesCost + updatedData?.workCost;
-        const updatedDataTotalCost = {...updatedData, totalCost: totalCost}
+        const totalSuppliesCost = updatedData.tasks.reduce((acc, task) => acc + Number(task.suppliesCost || 0), 0);
+        const totalCost = Number(totalSuppliesCost) + Number(updatedData.workCost || 0);
+        const updatedDataTotalCost = {...updatedData, totalCost}
 
         const updatedInvoice = await Invoice.findOneAndUpdate({id}, updatedDataTotalCost, {new: true});
 
